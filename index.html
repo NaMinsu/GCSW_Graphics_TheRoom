@@ -1,0 +1,99 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Escape Room</title>
+
+        <meta name="apple-mobile-web-app-title" content="Escape Room">
+        <!--<link rel="apple-touch-icon" href="../imgs/icon.gif">
+        <link rel="apple-touch-startup-image" href="../imgs/launch.jpg">-->
+        <meta name="apple-mobile-web-app-title" content="Escape Room">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/estilo.css">
+        <link rel="stylesheet" href="css/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+        <script type="text/javascript" src="libs/jquery-1.9.0.js"></script>
+        <script type="text/javascript" src="libs/three.js"></script>
+        <script type="text/javascript" src="libs/three.min.js"></script>
+        <script type="text/javascript" src="libs/OrbitControls.js"></script>
+        <script type="text/javascript" src="libs/OBJLoader.js"></script>
+        <script type="text/javascript" src="libs/MTLLoader.js"></script>
+        <script type="text/javascript" src="libs/Tween.js"></script>    
+
+
+        <script type="text/javascript" src="js/Scene.js"></script> 
+        <script type="text/javascript" src="js/ObjectViewer.js"></script> 
+        <script type="text/javascript" src="js/Stage.js"></script> 
+        <script type="text/javascript" src="js/ObjectInteract.js"></script> 
+        <script type="text/javascript" src="js/ObjectRecognition.js"></script> 
+        <script type="text/javascript" src="js/ObjectCheck.js"></script> 
+        <script type="text/javascript" src="js/Inventory.js"></script> 
+        <script type="text/javascript" src="js/ObjectInventory.js"></script> 
+        <script type="text/javascript" src="js/Dialog.js"></script> 
+        <script type="text/javascript" src="js/Main.js"></script>
+
+        <style>
+            body{
+                margin: 0;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Div para renderizar el juego principal 게임 화면 -->
+        <div id="WebGL-output"></div>
+       
+        <!-- Pantalla de carga -->
+        <div id="loading" class="no-select">
+            <div id="spinner"></div>
+        </div>
+
+        <!-- Precarga de elementos 이미지 요소들 -->
+        <div id="features" class="no-select">
+            <i class="material-icons">arrow_back</i>
+            <i class="material-icons">arrow_forward</i>
+            <i class="material-icons">expand_more</i>
+            <img src="imgs/inventory/test.png">
+            <img src="imgs/inventory/test2.png">
+            <img src="imgs/inventory/llave.png">
+            <img src="imgs/1031.png">
+        </div>
+
+        <!-- HUD -->
+        <!-- Botón para dejar de examinar -->
+        <div id="object-crop" class="no-select">
+            <button class="w3-btn w3-blue w3-xlarge" onclick="scene.Exit()">
+                <i class="material-icons">arrow_back</i> Return
+            </button>
+        </div>
+
+        <!-- Botón para salir del visor de objetos 보고 있는 화면 뒤로 가기 버튼 -->
+        <div id="accept-button" class="no-select">
+            <button class="w3-btn w3-blue w3-xlarge" onclick="scene.hideViewerObject()">
+                Accept
+            </button>
+        </div>
+
+        <!-- Interfaz del inventario 인벤토리 인터페이스 -->
+        <div id="inventory" class="no-select">
+            <div id="inventory-left" class="w3-blue w3-hover-shadow w3-center" onclick="scene.selectPrev()">
+                <i class="material-icons centrar">arrow_back</i>
+                </div>
+            <img id="object-selected" src="" height="150" width="150">
+            <div id="inventory-right" class="w3-blue w3-hover-shadow w3-center" onclick="scene.selectNext()">
+                <i class="material-icons centrar">arrow_forward</i>
+                </div>
+        </div>
+
+        <!-- Interfaz de los diálogos 대화창 인터페이스 -->
+        <div id="darkness" class="no-select" onclick="onMouseDownDialog()"></div>
+        <div id="dialog" class="no-select w3-panel w3-black w3-round-xxlarge" onclick="onMouseDownDialog();">
+            <p id="text-dialog"></p>
+            <i id="dialogo-siguiente" class="material-icons">expand_more</i>
+        </div>
+
+        <div id="fin" class="no-select">
+            <p>FIN</p>
+        </div>
+    </body>
+</html>
