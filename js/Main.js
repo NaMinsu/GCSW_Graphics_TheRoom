@@ -111,11 +111,11 @@ $(function(){
 
 	// initial dialog
 	scene.initialDialog([
-		"Tú: Agh.... Ay... Todo me da vueltas... con el ratón...",
-		"Tú: ¿Se puede saber en qué clase de habitación mal diseñada estoy?",
-		"Tras una noche de desenfreno y borrachera (con Nestea), he aparecido aquí.",
-		"Estoy seguro de que si investigo encontraré la forma de salir... ",
-		"No obstante, esto está muy oscuro como para ver nada. Me pregunto si habrá alguna forma de encender las luces...",
-		"(SARCASMO)"
+		"나: 아... 머리가 핑핑 도는데...",
+		"나: 뭐야, 대체 이 방은 어디지? 내 방은 아닌데?",
+		"어제 친구들과 밤새 진탕 마신 것까지는 기억 나는데, 정신 차려보니 여기다.",
+		"방을 샅샅이 찾아보면 나갈 수 있는 방법이 있을 것이다.",
+		"하지만 방이 너무 어둡다. 방의 전등을 킬 수 있는 방법부터 찾아보자.",
+		"(한숨)"
 	]);
 });
