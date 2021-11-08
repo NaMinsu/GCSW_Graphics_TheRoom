@@ -10,7 +10,7 @@
  ObjectInventory = function(name, image)
 {
     this.name = name;
-    this.name = name;
+    this.image = image;
 
 };
 
