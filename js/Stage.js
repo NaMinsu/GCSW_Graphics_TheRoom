@@ -81,44 +81,53 @@ Stage = function(scene)
 		return interruptor;
 	}
 
-	var createPoster = function() //포스터 생성
-	{
-		var functionPoster = function(object, mode, objectseleccionado)
+	var createFrame = function(objects, keyInventory, InventoryCombination)
 		{
-			if (mode !== Scene.Mode.TUTORIAL)
+			var functionFrame = function(object, mode, objectseleccionado)
 			{
-				object.scene.initialDialog([
-					"우주 그림이 그려진 포스터다.", //대충 우주 포스터 설명하는 내용
-					"수많은 별들이 있지만 내가 아는 별은 없는 것 같다.",
-					"그 외에는 별다른 특이한 점은 없는 것 같다. 다른 곳을 찾아보자."
-				]);
-			}else{
-				object.scene.initialDialog([
-					"벽에 무언가 붙어있지만 어두워서 잘 보이지 않는다."//방과 포스터중 뭐가 더 어두운지 모르겠다는 내용같음
-				]);
+				if (mode !== Scene.Mode.TUTORIAL)
+				{
+					object.scene.initialDialog([
+						"우주 그림이 그려진 포스터다.", //대충 우주 포스터 설명하는 내용
+						"수많은 별들이 있지만 내가 아는 별은 없는 것 같다.",
+						"그 외에는 별다른 특이한 점은 없는 것 같다. 다른 곳을 찾아보자."
+					]);
+				}else{
+					object.scene.initialDialog([
+						"벽에 무언가 붙어있지만 어두워서 잘 보이지 않는다."//방과 포스터중 뭐가 더 어두운지 모르겠다는 내용같음
+					]);
+				}
 			}
+		var frameMTL = new THREE.MTLLoader(); 
+		frameMTL.setPath("models/Frame/");
+
+		frameMTL.load("frame.mtl", function(materials)
+				{
+					materials.preload(); //material
+					
+					var frameObjects = new THREE.OBJLoader();
+					frameObjects.setMaterials(materials);
+					frameObjects.setPath("models/Frame/");
+
+					frameObjects.load("frame.obj", function(modelFrame)
+					{
+						modelFrame.scale.set(0.25, 0.3, 0.2);
+
+						var pointCamera = new THREE.Object3D(); //카메라포인트
+						pointCamera.position.z = 50;
+
+						var frame = new ObjectCheck(modelFrame, functionFrame, pointCamera, scene);//책상
+						frame.position.x = -50;
+						frame.position.y = 50;
+						frame.position.z = -149.5;
+						
+
+						
+
+						objects.add(frame);
+					});
+				});
 		}
-
-		var posterTexture = new THREE.TextureLoader(); //충전기 텍스처??
-		this.textureImage = posterTexture.load("imgs/fondo.jpg");
-
-		var _Poster = new THREE.Mesh(new THREE.BoxGeometry(70, 45, 0.5),
-											   new THREE.MeshLambertMaterial({color: 0xd1d1d1, 
-												   map: this.textureImage
-												})
-											   );
-		var pointCamera = new THREE.Object3D(); //카메라 포인트
-		pointCamera.position.z = 50;
-
-
-		var poster = new ObjectCheck(_Poster, functionPoster, pointCamera, scene);
-
-		poster.position.x = -50;
-		poster.position.y = 50;
-		poster.position.z = -149.5;
-
-		return poster;
-	}
 
 	var createDoor = function(keyInventory) // 문 생성
 	{
@@ -344,9 +353,9 @@ Stage = function(scene)
 		return key;
 	}
 
-	var createcomputer = function(objects, keyInventory, InventoryCombination)
+	var createComputer = function(objects, keyInventory, InventoryCombination)
 		{
-		var functioncomputer = function(object, mode, objectseleccionado)
+		var functionComputer = function(object, mode, objectseleccionado)
 		{
 			if(mode !== Scene.Mode.TUTORIAL){ //modo = 방법
 							if(objectseleccionado === keyInventory){
@@ -389,7 +398,7 @@ Stage = function(scene)
 						pointCamera.position.z = 50;
 						pointCamera.rotation.y = -Math.PI / 4;
 
-						var computer = new ObjectCheck(modelComputer, functioncomputer, pointCamera, scene);//책상
+						var computer = new ObjectCheck(modelComputer, functionComputer, pointCamera, scene);//책상
 						computer.position.x = 100;
 						computer.position.z = -100;
 						computer.translateX(-32);
@@ -600,8 +609,8 @@ Stage = function(scene)
 		// Interruptor de la light
 		objects.add(lightInterrupt());
 
-		//Poster
-		objects.add(createPoster());
+		//Frame
+		createFrame(objects, keyInventory, passwordInventory);
 
 		// Door
 		objects.add(createDoor(keyInventory));
@@ -612,7 +621,7 @@ Stage = function(scene)
 		// Desk
 		createDesk(objects, keyInventory, passwordInventory);
 
-		createcomputer(objects, keyInventory, passwordInventory);
+		createComputer(objects, keyInventory, passwordInventory);
 
 		return objects;
 	};
