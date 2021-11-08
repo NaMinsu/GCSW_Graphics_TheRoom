@@ -340,6 +340,65 @@ Stage = function(scene)
 		return key;
 	}
 
+	var createcomputer = function(objects, keyInventory, InventoryCombination)
+		{
+		var functioncomputer = function(object, mode, objectseleccionado)
+		{
+			if(mode !== Scene.Mode.TUTORIAL){ //modo = 방법
+							if(objectseleccionado === keyInventory){
+								object.scene.initialDialog([
+								"서랍에 열쇠를 끼워보려 했지만, 맞는 열쇠가 아닌 것 같다."
+								]);
+							}else{
+								object.scene.initialDialog([
+									"책상이다. 책상 위에 금고가 있고, 서랍은 열리지 않는 것 같다.",
+									"서랍이나 금고를 열 방법을 찾으면 무언가 얻을 수 있을지도 모른다."
+								]);
+							}
+
+						}else{
+							object.scene.initialDialog([ //불 안키고 상호작용 할때
+								"책상이 하나 놓여있다.",
+								"무언가 커다란 게 놓여져 있지만 어두워서 알아볼 수 없다.",
+								"아무래도 전등을 켤 수 있는 건 없을 것 같다."
+							]);
+						}
+			}
+		var computerMTL = new THREE.MTLLoader(); 
+		computerMTL.setPath("models/desktop_computer/");
+
+		computerMTL.load("desktop_computer.mtl", function(materials)
+				{
+					materials.preload(); //material
+					
+					var computerObjects = new THREE.OBJLoader();
+					computerObjects.setMaterials(materials);
+					computerObjects.setPath("models/desktop_computer/");
+
+					computerObjects.load("desktop_computer.obj", function(modelComputer)
+					{
+						modelComputer.scale.set(15, 12, 15);
+
+						var pointCamera = new THREE.Object3D(); //카메라포인트
+						pointCamera.position.x = -50;
+						pointCamera.position.y = 60;
+						pointCamera.position.z = 50;
+						pointCamera.rotation.y = -Math.PI / 4;
+
+						var computer = new ObjectCheck(modelComputer, functioncomputer, pointCamera, scene);//책상
+						computer.position.x = 100;
+						computer.position.z = -100;
+						computer.translateX(-32);
+						computer.translateY(48);
+						computer.translateZ(-25);
+						
+
+						objects.add(computer);
+					});
+				});
+		}
+
+
 	var createDesk = function(objects, keyInventory, InventoryCombination)//책상 생성
 	{
 		var functionDesk = function(object, mode, objectseleccionado)
@@ -548,6 +607,8 @@ Stage = function(scene)
 
 		// Desk
 		createDesk(objects, keyInventory, passwordInventory);
+
+		createcomputer(objects, keyInventory, passwordInventory);
 
 		return objects;
 	};
