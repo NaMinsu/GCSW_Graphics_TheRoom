@@ -51,12 +51,12 @@ Stage = function(scene)
 				object.scene.terminateTutorial();
 				lightOn = true;
 				object.scene.initialDialog([
-					"¡Y se hizo la light!", //와! 불켜짐!
+					"전등이 켜졌다!", //와! 불켜짐!
 				]);
 			}{
 				object.scene.initialDialog([
-					"Aun a riesgo de que haya algún puzle que use pintura fosforescente, la light se queda encendida.",
-					"JAJAJAJAJA. Pintura fosforescente. Como si los desarrolladores supieran hacer eso..."
+					"전등이 켜졌으니 더 이상 스위치를 건드릴 일은 없다.",
+					"서둘러 방을 나갈 방법을 찾아보자."
 				]);
 			}
 		}
@@ -84,15 +84,13 @@ Stage = function(scene)
 			if (mode !== Scene.Mode.TUTORIAL)
 			{
 				object.scene.initialDialog([
-					"Es un poster del universo.", //대충 우주 포스터 설명하는 내용
-					"Me encantaría que hubiera unos planetas orbitando alrededor, en este bottom.",
-					"Me gustaría tanto, que lo pondría en todos los sitios en los que pudiera.",
-					"Como en una página web de noticias de videojuegos o en la web de un hotel.",
-					"Por poner ejemplos así al azar."
+					"우주 그림이 그려진 포스터다.", //대충 우주 포스터 설명하는 내용
+					"수많은 별들이 있지만 내가 아는 별은 없는 것 같다.",
+					"그 외에는 별다른 특이한 점은 없는 것 같다. 다른 곳을 찾아보자."
 				]);
 			}else{
 				object.scene.initialDialog([
-					"No sé qué está más oscuro, si esta habitación o el poster."//방과 포스터중 뭐가 더 어두운지 모르겠다는 내용같음
+					"벽에 무언가 붙어있지만 어두워서 잘 보이지 않는다."//방과 포스터중 뭐가 더 어두운지 모르겠다는 내용같음
 				]);
 			}
 		}
@@ -194,7 +192,7 @@ Stage = function(scene)
 
 			}else{
 				object.scene.initialDialog([
-					"Huy... ¡Casi! Las doors no encienden la light, pero oye, tú a tu ritmo."
+					"문이 잠겨있다. 일단 전등을 켜서 열쇠부터 찾아야 할 것 같다."
 				]);
 			}
 		}
