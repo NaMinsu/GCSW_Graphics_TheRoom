@@ -25,10 +25,14 @@ Stage = function(scene)
 	{
 		var decoration = new THREE.Object3D(); //데코레이션
 
+		var posterTexture = new THREE.TextureLoader(); //충전기 텍스처??
+		this.textureImage = posterTexture.load("imgs/brick.jpg");
+
 		var wall= new THREE.BoxGeometry(300, 100, 300); //상자 벽
 		var materialWalls = new THREE.MeshLambertMaterial({
-			color: 0xffffff
+			color: 0xffffff, map: this.textureImage
 		});
+
 		var walls = new THREE.Mesh(wall, materialWalls); //벽
 		walls.material.side = THREE.BackSide;
 
