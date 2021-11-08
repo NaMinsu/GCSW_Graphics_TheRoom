@@ -442,10 +442,10 @@ Stage = function(scene)
 
 	var createBed = function(InventoryCombination) //침대생성
 	{
-		var cameraModel = new THREE.Object3D();
+		var bedModel = new THREE.Object3D();
 
 		// 25 20 10
-		var camera = new THREE.Mesh(new THREE.BoxGeometry(100, 10, 40),
+		var bed = new THREE.Mesh(new THREE.BoxGeometry(100, 10, 40),
 								   new THREE.MeshLambertMaterial({color: 0xe60026}));
 		var bedFrontLeft = new THREE.Mesh(new THREE.BoxGeometry(5, 20, 5),//침대다리 왼쪽 앞
 									  new THREE.MeshLambertMaterial({color: 0x8d4925}));
@@ -459,7 +459,7 @@ Stage = function(scene)
 		var pillow = new THREE.Mesh(new THREE.BoxGeometry(7, 4, 30),//베개
 								  		  new THREE.MeshLambertMaterial({color: 0xffffff}));
 
-		camera.position.y = 10;
+		bed.position.y = 10;
 		
 		bedFrontLeft.position.x = 40;
 		bedFrontLeft.position.z = 15;
@@ -478,12 +478,12 @@ Stage = function(scene)
 		
 		
 
-		cameraModel.add(camera);
-		cameraModel.add(bedFrontLeft);
-		cameraModel.add(bedFrontRight);
-		cameraModel.add(bedRearLeft);
-		cameraModel.add(bedRearRight);
-		cameraModel.add(pillow);
+		bedModel.add(bed);
+		bedModel.add(bedFrontLeft);
+		bedModel.add(bedFrontRight);
+		bedModel.add(bedRearLeft);
+		bedModel.add(bedRearRight);
+		bedModel.add(pillow);
 
 		
 		var functionBed = function(object, mode, selectedObject)
@@ -515,20 +515,20 @@ Stage = function(scene)
 		pointCamera.position.z = 50;
 
 
-		var trueCamera = new ObjectCheck(cameraModel, functionBed, pointCamera, scene);
+		var trueBed = new ObjectCheck(bedModel, functionBed, pointCamera, scene);
 		//이불인가 교환인가
-		trueCamera.position.x = -90;
-		trueCamera.position.y = 10;
-		trueCamera.rotation.y = Math.PI/2;
+		trueBed.position.x = -90;
+		trueBed.position.y = 10;
+		trueBed.rotation.y = Math.PI/2;
 
 		var note = createCombination(InventoryCombination);
 		note.position.y = -10;
 		note.position.z = -10;
 		note.rotateX(-Math.PI/2);
 
-		trueCamera.insertChild(note);
+		trueBed.insertChild(note);
 
-		return trueCamera;
+		return trueBed;
 	}
 
 	/** create los objects interactuables */
