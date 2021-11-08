@@ -172,21 +172,20 @@ Stage = function(scene)
 							.start()
 
 						object.scene.initialDialogFinal([ //엔딩인듯
-						"Tú: ¿¡CÓMO!?",
-						"Tú: ¡PERO DETRÁS DE LA DOOR HAY MÁS WALL!",
-						"Tú: ¿Cómo quieren que salga de algo que no tiene salida?",
-						"Y te moriste FIN."
+						"나: 응?",
+						"나: 문을 열었는데 왜 벽이 나오는거야?!",
+						"나: 그럼 대체 어떻게 빠져나가야 하지?",
+						"Game Over."
 					]);
 
 					}
 				}else{
 					object.scene.initialDialog([
-						"Es una door. Está cerrada.",
-						"¿Qué gracia tendría un juego de Escape Room que tuviera la door opened?",
-						"Ah, pues ahora que caigo, no son pocos los juegos que dejan la door opened.",
+						"문이다. 잠겨 있는 문.",
+						"아무래도 문을 열어야 나갈 수 있는 것 같다.",
+						"하지만 문을 열 수 있는 도구 같은 것은 찾지 못했다.",
 						"...",
-						"Mi contradicción no ha dejado a la door DESCOLOCADA.",
-						"*badumtss*"
+						"주변을 더 둘러보자."
 					]);
 				}
 
@@ -268,8 +267,8 @@ Stage = function(scene)
 
 						
 					object.scene.initialDialog([
-						"He introducido la combinación de la caja fuerte.",
-						"En vista de que no hay papelera, throwingé la combinación al limbo gráfico."
+						"번호를 누르자 금고가 열렸다.",
+						"금고 안에는 열쇠가 있다. 어디에 쓰는 열쇠일까?"
 					]);
 					throwing = true;
 				}
@@ -278,13 +277,12 @@ Stage = function(scene)
 			{
 				if(!opened){
 					object.scene.initialDialog([
-						"Es una caja fuerte. Hace falta una combinación para abrirla.",
-						"O también podemos optar por mucha dinamita."
+						"금고가 있다. 다이얼로 비밀번호를 입력하면 열리는 것 같다.",
+						"하지만 비밀번호를 알 방법이 있을까?"
 					]);
 				}else{
 					object.scene.initialDialog([
-					"La caja fuerte ha sido abrida.",
-					"Me ha apetecido hablar en conjugación no válida."
+					"금고가 열려 있다."
 					]);
 				}
 			}
@@ -302,10 +300,9 @@ Stage = function(scene)
 		var functionKey = function(object, mode, selectedObject)
 		{
 			object.scene.initialDialog([
-				"He encontrado una key.",
-				"Sorprendentemente, se parece a una key.",
-				"Aún no me creo lo bien hecha que está la key después de ver la camera.",
-				"Me quedo con la key. Pocos días se pueden ver algo tan bello."
+				"나는 금고 안에 있는 열쇠를 집어들었다.",
+				"이걸로 어딘가를 열 수 있지 않을까?",
+				"시스템: 열쇠를 획득했습니다."
 			]);
 		}
 
@@ -350,21 +347,20 @@ Stage = function(scene)
 			if(mode !== Scene.Mode.TUTORIAL){ //modo = 방법
 				if(objectseleccionado === keyInventory){
 					object.scene.initialDialog([
-					"Lo de la key del tiempo era una metáfora. No se van a abrir."
+					"서랍에 열쇠를 끼워보려 했지만, 맞는 열쇠가 아닌 것 같다."
 					]);
 				}else{
 					object.scene.initialDialog([
-						"Es un desk. Tiene una caja fuerte y cajones que no se abren.",
-						"No se abren porque están cerrados con la key de la falta de tiempo."
+						"책상이다. 책상 위에 금고가 있고, 서랍은 열리지 않는 것 같다.",
+						"서랍이나 금고를 열 방법을 찾으면 무언가 얻을 수 있을지도 모른다."
 					]);
 				}
 
 			}else{
 				object.scene.initialDialog([ //불 안키고 상호작용 할때
-					"Eso es un desk, no un interruptor.",
-					"Ya sé que no debería ver nada porque está oscuro, pero yo lo veo perfectamente.",
-					"Quizás debería usar el desk como fuente de light.",
-					"Es broma."
+					"책상이 하나 놓여있다.",
+					"무언가 커다란 게 놓여져 있지만 어두워서 알아볼 수 없다.",
+					"아무래도 전등을 켤 수 있는 건 없을 것 같다."
 				]);
 			}
 		}
@@ -418,9 +414,9 @@ Stage = function(scene)
 		var functionCombination = function(object, modo, objectseleccionado)
 		{
 			object.scene.initialDialog([
-				"Es una nota con los números '1031' escritos en ella.",
-				"Me pregunto para qué me podrá servir...",
-				"SARCASMO: THE RETURN."
+				"침대 밑을 보니 '1031'이라고 적힌 쪽지가 있다.",
+				"대체 이 번호는 무슨 의미지?",
+				"시스템: '1031' 쪽지를 획득했습니다."
 			]);
 		}
 
@@ -490,20 +486,20 @@ Stage = function(scene)
 			{	
 				if(selectedObject == InventoryCombination){
 					object.scene.initialDialog([
-					"¿Deshacerme de la nota que tanto tiempo he tardado en localizar?",
-					"Po' va a ser que no."
+					"더 누워 있고 싶지만 이러고 있을 시간이 없다.",
+					"다른 곳을 찾아보자."
 				]);
 				}else{
 					object.scene.initialDialog([
-						"Es una camera. O mejor dicho, se parece a una camera.",
-						"Tengo la sensación de que si me tumbo me romperé cuatro costillas."
+						"침대 자체에는 별로 특별한 건 없어보인다.",
+						"대신 침대 바닥에 뭔가 있는거 같은데..."
 					]);
 				}
 					
 			}else{
 				object.scene.initialDialog([
-					"Desde luego, las condiciones son las óptimas para tumbarme.",
-					"Pero ya he dormido suficiente, gracias."			
+					"내가 누워있던 침대다.",
+					"더 이상 자고 있을 수 없다. 탈출할 방법을 찾아보자."				
 				]);
 			}
 
