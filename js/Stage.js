@@ -419,7 +419,6 @@ Stage = function(scene)
 	{
 		var functionCombination = function(object, modo, objectseleccionado)
 		{
-            console.log('test', object)
 			object.scene.initialDialog([
 				"Es una nota con los números '1031' escritos en ella.",
 				"Me pregunto para qué me podrá servir...",
@@ -441,7 +440,7 @@ Stage = function(scene)
 	}
 
 
-	var createCamera = function(InventoryCombination) //침대생성
+	var createBed = function(InventoryCombination) //침대생성
 	{
 		var cameraModel = new THREE.Object3D();
 
@@ -487,7 +486,7 @@ Stage = function(scene)
 		cameraModel.add(pillow);
 
 		
-		var functionCamera = function(object, mode, selectedObject)
+		var functionBed = function(object, mode, selectedObject)
 		{
 			if(mode !== Scene.Mode.TUTORIAL)
 			{	
@@ -516,7 +515,7 @@ Stage = function(scene)
 		pointCamera.position.z = 50;
 
 
-		var trueCamera = new ObjectCheck(cameraModel, functionCamera, pointCamera, scene);
+		var trueCamera = new ObjectCheck(cameraModel, functionBed, pointCamera, scene);
 		//이불인가 교환인가
 		trueCamera.position.x = -90;
 		trueCamera.position.y = 10;
@@ -539,7 +538,7 @@ Stage = function(scene)
 
 		// objects inventory
 		var keyInventory = new ObjectInventory("Key", "imgs/inventory/key.png");
-		var InventoryCombination = new ObjectInventory("Combination", "imgs/1031.png");
+		var passwordInventory = new ObjectInventory("Password", "imgs/1031.png");
 
 		// Interruptor de la light
 		objects.add(lightInterrupt());
@@ -551,10 +550,10 @@ Stage = function(scene)
 		objects.add(createDoor(keyInventory));
 
 		//Camera
-		objects.add(createCamera(InventoryCombination));
+		objects.add(createBed(passwordInventory));
 
 		// Desk
-		createDesk(objects, keyInventory, InventoryCombination);
+		createDesk(objects, keyInventory, passwordInventory);
 
 		return objects;
 	};
