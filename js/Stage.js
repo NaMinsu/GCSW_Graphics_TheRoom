@@ -358,16 +358,10 @@ Stage = function(scene)
 		var functionComputer = function(object, mode, objectseleccionado)
 		{
 			if(mode !== Scene.Mode.TUTORIAL){ //modo = 방법
-							if(objectseleccionado === keyInventory){
-								object.scene.initialDialog([
-								"서랍에 열쇠를 끼워보려 했지만, 맞는 열쇠가 아닌 것 같다."
-								]);
-							}else{
-								object.scene.initialDialog([
-									"책상이다. 책상 위에 금고가 있고, 서랍은 열리지 않는 것 같다.",
-									"서랍이나 금고를 열 방법을 찾으면 무언가 얻을 수 있을지도 모른다."
-								]);
-							}
+							object.scene.initialDialog([
+								"책상 다른 한쪽에 컴퓨터가 놓여 있다.",
+								"모니터에 무언가가 나타나있다."
+							]);
 
 						}else{
 							object.scene.initialDialog([ //불 안키고 상호작용 할때
@@ -393,10 +387,9 @@ Stage = function(scene)
 						modelComputer.scale.set(15, 12, 15);
 
 						var pointCamera = new THREE.Object3D(); //카메라포인트
-						pointCamera.position.x = -50;
-						pointCamera.position.y = 60;
-						pointCamera.position.z = 50;
-						pointCamera.rotation.y = -Math.PI / 4;
+						pointCamera.position.x = 0;
+						pointCamera.position.y = 0;
+						pointCamera.position.z = 20;
 
 						var computer = new ObjectCheck(modelComputer, functionComputer, pointCamera, scene);//책상
 						computer.position.x = 100;
