@@ -358,10 +358,18 @@ Stage = function(scene)
 		var functionComputer = function(object, mode, objectseleccionado)
 		{
 			if(mode !== Scene.Mode.TUTORIAL){ //modo = 방법
+							if (objectselected === InventoryCombination) {
+							object.scene.initialDialog([
+								"비밀번호를 입력해봤지만 틀렸다는 메시지가 뜬다.",
+								"아무래도 여기에 쓰는 번호가 아닌 듯 하다."
+							]);
+						}
+						else {
 							object.scene.initialDialog([
 								"책상 다른 한쪽에 컴퓨터가 놓여 있다.",
-								"모니터에 무언가가 나타나있다."
+								"모니터에 비밀번호를 입력하는 창이 떠있다."
 							]);
+						}
 
 						}else{
 							object.scene.initialDialog([ //불 안키고 상호작용 할때
