@@ -129,6 +129,58 @@ Stage = function(scene)
 				});
 		}
 
+
+		var createBookshelf = function(objects, keyInventory, InventoryCombination)
+		{
+			var functionBookshelf = function(object, mode, objectseleccionado)
+			{
+				if (mode !== Scene.Mode.TUTORIAL)
+				{
+					object.scene.initialDialog([
+						"불켜질 때 책장대사",
+					]);
+				}else{
+					object.scene.initialDialog([
+						"불꺼질 때 책장대사"
+					]);
+				}
+			}
+		var bookshelfMTL = new THREE.MTLLoader(); 
+		bookshelfMTL.setPath("models/Bookshelf/");
+
+		bookshelfMTL.load("bookshelf.mtl", function(materials)
+				{
+					materials.preload(); //material
+					
+					var bookshelfObjects = new THREE.OBJLoader();
+					bookshelfObjects.setMaterials(materials);
+					bookshelfObjects.setPath("models/Bookshelf/");
+
+					bookshelfObjects.load("bookshelf.obj", function(modelBookshelf)
+					{
+						modelBookshelf.scale.set(1.3, 1.3, 1.2);
+
+						var pointCamera = new THREE.Object3D(); //카메라포인트
+						pointCamera.position.x = -10;
+						pointCamera.position.y = 50;
+						pointCamera.position.z = -80;
+
+
+						pointCamera.rotation.y = -Math.PI/1;
+
+
+						var bookshelf = new ObjectCheck(modelBookshelf, functionBookshelf, pointCamera, scene);//책상
+						bookshelf.position.x = -120;
+						bookshelf.position.z = 137;
+						
+
+						
+
+						objects.add(bookshelf);
+					});
+				});
+		}	
+
 	var createDoor = function(keyInventory) // 문 생성
 	{
 		var modelDoor = new THREE.Object3D(); //문 모델
@@ -612,6 +664,9 @@ Stage = function(scene)
 
 		//Frame
 		createFrame(objects, keyInventory, passwordInventory);
+
+		//Bookshelf
+		createBookshelf(objects, keyInventory, passwordInventory);
 
 		// Door
 		objects.add(createDoor(keyInventory));
