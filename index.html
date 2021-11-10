@@ -4,8 +4,6 @@
         <title>The Room</title>
 
         <meta name="apple-mobile-web-app-title" content="Escape Room">
-        <!--<link rel="apple-touch-icon" href="../imgs/icon.gif">
-        <link rel="apple-touch-startup-image" href="../imgs/launch.jpg">-->
         <meta name="apple-mobile-web-app-title" content="Escape Room">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="css/estilo.css">
@@ -19,7 +17,6 @@
         <script type="text/javascript" src="libs/OBJLoader.js"></script>
         <script type="text/javascript" src="libs/MTLLoader.js"></script>
         <script type="text/javascript" src="libs/Tween.js"></script>    
-
 
         <script type="text/javascript" src="js/Scene.js"></script> 
         <script type="text/javascript" src="js/ObjectViewer.js"></script> 
@@ -40,15 +37,15 @@
         </style>
     </head>
     <body>
-        <!-- Div para renderizar el juego principal 게임 화면 -->
+        <!-- 게임 화면 -->
         <div id="WebGL-output"></div>
        
-        <!-- Pantalla de carga -->
+        <!-- 로딩 화면 -->
         <div id="loading" class="no-select">
             <div id="spinner"></div>
         </div>
 
-        <!-- Precarga de elementos 이미지 요소들 -->
+        <!-- 이미지 요소들 -->
         <div id="features" class="no-select">
             <i class="material-icons">arrow_back</i>
             <i class="material-icons">arrow_forward</i>
@@ -60,21 +57,21 @@
         </div>
 
         <!-- HUD -->
-        <!-- Botón para dejar de examinar -->
+        <!-- 보고 있는 화면 뒤로 가기 버튼 -->
         <div id="object-crop" class="no-select">
             <button class="w3-btn w3-blue w3-xlarge" onclick="scene.Exit()">
                 <i class="material-icons">arrow_back</i> 돌아가기
             </button>
         </div>
 
-        <!-- Botón para salir del visor de objetos 보고 있는 화면 뒤로 가기 버튼 -->
+        <!-- 아이템 확인 버튼 -->
         <div id="accept-button" class="no-select">
             <button class="w3-btn w3-blue w3-xlarge" onclick="scene.hideViewerObject()">
                 확인
             </button>
         </div>
 
-        <!-- Interfaz del inventario 인벤토리 인터페이스 -->
+        <!-- 인벤토리 인터페이스 -->
         <div id="inventory" class="no-select">
             <div id="inventory-left" class="w3-blue w3-hover-shadow w3-center" onclick="scene.selectPrev()">
                 <i class="material-icons centrar">arrow_back</i>
@@ -85,7 +82,7 @@
                 </div>
         </div>
 
-        <!-- Interfaz de los diálogos 대화창 인터페이스 -->
+        <!-- 대화창 인터페이스 -->
         <div id="darkness" class="no-select" onclick="onMouseDownDialog()"></div>
         <div id="dialog" class="no-select w3-panel w3-black w3-round-xxlarge" onclick="onMouseDownDialog();">
             <p id="text-dialog"></p>
