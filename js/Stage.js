@@ -422,14 +422,14 @@ Stage = function(scene)
 								"모니터에 비밀번호를 입력하는 창이 떠있다."
 							]);
 						}
-						else{
+
+						}else{
 							object.scene.initialDialog([ //불 안키고 상호작용 할때
 								"책상이 하나 놓여있다.",
 								"무언가 커다란 게 놓여져 있지만 어두워서 알아볼 수 없다.",
 								"아무래도 전등을 켤 수 있는 건 없을 것 같다."
 							]);
 						}
-					}
 			}
 		var computerMTL = new THREE.MTLLoader(); 
 		computerMTL.setPath("models/desktop_computer/");
