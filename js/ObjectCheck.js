@@ -27,9 +27,9 @@ ObjectCheck.prototype.interact = function(mode, ObjectSelection)
 
     if (mode === Scene.Mode.TUTORIAL){
         result = ObjectInteract.prototype.interact.call(this, mode,ObjectSelection);
-    }else if (mode === Scene.Mode.INVESTIGANDO)
+    }else if (mode === Scene.Mode.INVESTIGATION)
         this.scene.objectCheck(this);
-    else if (mode === Scene.Mode.EXAMINANDO)
+    else if (mode === Scene.Mode.EXAMINATION)
     result = ObjectInteract.prototype.interact.call(this, mode,ObjectSelection);
 
     return result;
