@@ -6,7 +6,7 @@ Stage = function(scene)
 	// static objects
 	var fondo = null; //bottom = 밑바닥
 
-	// interactive objectss
+	// interactive objects
 	this.objects = new THREE.Object3D();
 
 	var light; // 빛
@@ -25,7 +25,7 @@ Stage = function(scene)
 	{
 		var decoration = new THREE.Object3D(); //데코레이션
 
-		var posterTexture = new THREE.TextureLoader(); //충전기 텍스처??
+		var posterTexture = new THREE.TextureLoader(); // 텍스처 로더
 		this.textureImage = posterTexture.load("imgs/brick.jpg");
 
 		var wall= new THREE.BoxGeometry(300, 100, 300); //상자 벽
@@ -89,7 +89,7 @@ Stage = function(scene)
 				{
 					object.scene.initialDialog([
 						"벽에는 그림이 그려진 액자가 걸려있다.",
-						"그림 속에는 기괴한 얼굴의 노파가 아기를 안고 있는 모습이 보인다.",
+						"그림 속에는 기괴한 얼굴의 여인이 아기를 안고 있는 모습이 보인다.",
 						"계속 보다보니 기분이 나쁘다. 다른 곳을 둘러보자."
 					]);
 				}else{
@@ -137,11 +137,12 @@ Stage = function(scene)
 				if (mode !== Scene.Mode.TUTORIAL)
 				{
 					object.scene.initialDialog([
-						"불켜질 때 책장대사",
+						"구석 한켠에 책장이 있다.",
+						"어려워보이는 책들로 가득하다."
 					]);
 				}else{
 					object.scene.initialDialog([
-						"불꺼질 때 책장대사"
+						"무언가 선반 같은 것이 놓여있다. 어두워서 놓여진 물건은 안보인다."
 					]);
 				}
 			}
@@ -423,7 +424,8 @@ Stage = function(scene)
 							]);
 						}
 
-						}else{
+						}
+						else{
 							object.scene.initialDialog([ //불 안키고 상호작용 할때
 								"책상이 하나 놓여있다.",
 								"무언가 커다란 게 놓여져 있지만 어두워서 알아볼 수 없다.",
