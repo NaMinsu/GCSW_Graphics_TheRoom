@@ -30,7 +30,7 @@ ObjectRecognition.prototype.interact = function(mode, SelectObject)
     result = ObjectInteract.prototype.interact.call(this, mode, SelectObject);
     
     if ((this.ActivationObject === null || SelectObject === this.ActivationObject) && 
-                (mode === Scene.Mode.INVESTIGATION || mode === Scene.Mode.EXAMINATION))
+                (mode === Scene.Mode.INVESTIGANDO || mode === Scene.Mode.EXAMINANDO))
     {
         this.scene.getNewItem(this.objectRecoger);
         this.parent.remove(this);
