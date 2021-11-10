@@ -208,7 +208,7 @@ Scene = function(renderer)
 			.onComplete(function(){
 				interactionActivate = true;
 
-				currenetMode = Scene.Mode.EXAMINANDO;
+				currenetMode = Scene.Mode.EXAMINATION;
 				objectCheck = object;
 
 				// Mostrar botón para salir
@@ -258,7 +258,7 @@ Scene = function(renderer)
 					orbitControls.enabled = true;
 					interactionActivate = true;
 
-					currenetMode = Scene.Mode.INVESTIGANDO;
+					currenetMode = Scene.Mode.INVESTIGATION;
 					objectCheck = null;
 				})
 				.start();
@@ -346,7 +346,7 @@ Scene = function(renderer)
 
 			$("#accept-button").fadeIn(400);
 
-			if (currenetMode == Scene.Mode.EXAMINANDO)
+			if (currenetMode == Scene.Mode.EXAMINATION)
 				$("#object-crop").fadeOut(400);
 
 			$("#inventory").fadeOut(400);
@@ -364,12 +364,12 @@ Scene = function(renderer)
 		showViewer = false;
 
 		// Activar control
-		orbitControls.enabled = currenetMode == Scene.Mode.INVESTIGANDO;
+		orbitControls.enabled = currenetMode == Scene.Mode.INVESTIGATION;
 		interactionActivate = true;
 
 		$("#accept-button").fadeOut(400);
 
-		if (currenetMode == Scene.Mode.EXAMINANDO)
+		if (currenetMode == Scene.Mode.EXAMINATION)
 			$("#object-crop").fadeIn(400);
 
 		if (!inventory.itemListEmpty())
@@ -440,7 +440,7 @@ Scene = function(renderer)
 				else
 				{
 					// Activar la interacción
-					orbitControls.enabled = currenetMode == Scene.Mode.INVESTIGANDO || currenetMode == Scene.Mode.TUTORIAL;
+					orbitControls.enabled = currenetMode == Scene.Mode.INVESTIGATION || currenetMode == Scene.Mode.TUTORIAL;
 					interactionActivate = true;
 
 					// Ocultar el diálogo
@@ -450,7 +450,7 @@ Scene = function(renderer)
 					if (pendingView === null)
 					{
 						// Mostrar el botón de salir si es necesario
-						if (currenetMode == Scene.Mode.EXAMINANDO)
+						if (currenetMode == Scene.Mode.EXAMINATION)
 							$("#object-crop").fadeIn(400);
 						
 						// Mostrar el inventory si es necesario
@@ -494,7 +494,7 @@ Scene = function(renderer)
 	 */
 	this.terminateTutorial = function()
 	{
-		currenetMode = Scene.Mode.INVESTIGANDO;
+		currenetMode = Scene.Mode.INVESTIGATION;
 	}
 
 	init(this, renderer);
