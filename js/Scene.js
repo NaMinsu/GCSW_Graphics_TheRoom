@@ -505,8 +505,8 @@ Scene.prototype.constructor = Scene;
 
 
 Scene.Mode = {
-	INVESTIGANDO : 0,
-	EXAMINANDO : 1,
+	INVESTIGATION : 0,
+	EXAMINATION : 1,
 	DIALOG : 2,
 	TUTORIAL : 3, // Init
 	FIN : 4
