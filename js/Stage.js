@@ -410,7 +410,7 @@ Stage = function(scene)
 		var functionComputer = function(object, mode, objectseleccionado)
 		{
 			if(mode !== Scene.Mode.TUTORIAL){ //modo = 방법
-							if (objectselected === InventoryCombination) {
+							if (objectseleccionado === InventoryCombination) {
 							object.scene.initialDialog([
 								"비밀번호를 입력해봤지만 틀렸다는 메시지가 뜬다.",
 								"아무래도 여기에 쓰는 번호가 아닌 듯 하다."
