@@ -80,9 +80,9 @@ Scene = function(renderer)
 	 * 
 	 * @param {Numeric} aspect Aspect ratio, between 0 and 1
 	 */
-	this.setCameraAspect = function(aspecto)
+	this.setCameraAspect = function(aspect)
 	{
-		camera.aspect = aspecto;
+		camera.aspect = aspect;
 		camera.updateProjectionMatrix();
 	};
 
@@ -92,12 +92,12 @@ Scene = function(renderer)
 	 * 
 	 * @param {Vector2} mouse location
 	 */
-	this.interact = function(raton)  // interaction
+	this.interact = function(mouse)  // interaction
 	{
 		if (interactionActivate)  // if interaction is activated
 		{
 			var raycaster = new THREE.Raycaster();
-			raycaster.setFromCamera(raton, camera);
+			raycaster.setFromCamera(mouse, camera);
 
 		    selectedObject = raycaster.intersectObjects(stage.objects.children, true);
             console.log("selectedObject" ,selectedObject)
@@ -105,10 +105,8 @@ Scene = function(renderer)
 			if (selectedObject.length > 0)
 			{
 				/**
-				 * Subir en el árbol hasta encontrar el ObjetoInteractuable correspondiente:
-				 * un objeto de primer nivel si el jugador no está examinando nada,
-				 * un subobjeto del objeto que está examinando,
-				 * o el propio objeto que está examinando
+				 * find selected object
+				 * if object is subobject, find by object tree
 				 */ 
 				var object = selectedObject[0].object;
                 console.log("object ", object)
@@ -130,7 +128,7 @@ Scene = function(renderer)
 						|| (object !== null && (object.userData.objectParent == objectCheck
 							|| object.userData.objectInteract === objectCheck)))
 					{
-						// Llamar a su método de interacción
+						// object interaction with item
 						var delete_flag = object.userData.objectInteract.interact(currenetMode, inventory.objectSelected());
                         console.log(delete_flag)
 						if (delete_flag)
@@ -142,23 +140,22 @@ Scene = function(renderer)
 	}
 
 	/**
-	 * Mueve la cámara al puntoCamara del ObjetoExaminable proporcionado
-	 * También entra en modo examinando
+	 * move camera to selected object if it is specific object
 	 * 
-	 * @param {ObjectCheck} El objeto al que acercar la cámara
+	 * @param {ObjectCheck} object can make camera move
 	 */
 	this.objectCheck = function(object)
 	{
 		if (objectCheck === null)
 		{
-			// Almacenar la posición actual de la cámara
+			// save current camera position
 			InitalCameraPosition = {
-				posicion: {
+				position: {
 					x: camera.position.x,
 					y: camera.position.y,
 					z: camera.position.z
 				},
-				rotacion: {
+				rotation: {
 					x: camera.rotation.x,
 					y: camera.rotation.y,
 					z: camera.rotation.z
@@ -166,11 +163,11 @@ Scene = function(renderer)
 			};
 		}
 
-		// Desactivar controles
+		// disable control
 		orbitControls.enabled = false;
 		interactionActivate = false;
 
-		// Interpolar 
+		// Interpol 
 		var pointCameraInital = {
 			x: camera.position.x,
 			y: camera.position.y,
@@ -208,10 +205,10 @@ Scene = function(renderer)
 			.onComplete(function(){
 				interactionActivate = true;
 
-				currenetMode = Scene.Mode.EXAMINANDO;
+				currenetMode = Scene.Mode.EXAMINATION;
 				objectCheck = object;
 
-				// Mostrar botón para salir
+				// fade-in 돌아가기 button
 				$("#object-crop").fadeIn(400);
 			})
 			.start();
@@ -221,10 +218,10 @@ Scene = function(renderer)
 	{
 		if (interactionActivate)
 		{
-			// Desactivar controles
+			// disabel control
 			interactionActivate = false;
 
-			// Interpolar 
+			// Interpol
 			var pointCameraInital = {
 				x: camera.position.x,
 				y: camera.position.y,
@@ -236,13 +233,13 @@ Scene = function(renderer)
 			};
 
 			var pointCameraFinal = {
-				x: InitalCameraPosition.posicion.x,
-				y: InitalCameraPosition.posicion.y,
-				z: InitalCameraPosition.posicion.z,
+				x: InitalCameraPosition.position.x,
+				y: InitalCameraPosition.position.y,
+				z: InitalCameraPosition.position.z,
 
-				rx: InitalCameraPosition.rotacion.x,
-				ry: InitalCameraPosition.rotacion.y,
-				rz: InitalCameraPosition.rotacion.z
+				rx: InitalCameraPosition.rotation.x,
+				ry: InitalCameraPosition.rotation.y,
+				rz: InitalCameraPosition.rotation.z
 			};
 
 			var timeInterpolation = 1000;
@@ -254,25 +251,25 @@ Scene = function(renderer)
 				})
 				.easing(TWEEN.Easing.Quadratic.InOut)
 				.onComplete(function(){
-					// Activar interaccion
+					// Activate interaction
 					orbitControls.enabled = true;
 					interactionActivate = true;
 
-					currenetMode = Scene.Mode.INVESTIGANDO;
+					currenetMode = Scene.Mode.INVESTIGATION;
 					objectCheck = null;
 				})
 				.start();
 
-			// Ocultar botón para salir
+			// fade-out 돌아가기 button
 			$("#object-crop").fadeOut(400);
 		}
 	}
 
 	// inventory
 	/**
-	 * Añade un objeto al inventory del jugador
+	 * Add item to inventory
 	 * 
-	 * @param {InventoryObject} El objeto a añadir
+	 * @param {InventoryObject} item to add
 	 */
 	this.getNewItem = function(object)
 	{
@@ -281,9 +278,9 @@ Scene = function(renderer)
 	};
 
 	/**
-	 * Eliminar un objeto del inventory del jugador
+	 * delete item from inventory
 	 * 
-	 * @param {ObjectInventory} El objeto a eliminar
+	 * @param {ObjectInventory} item to delete
 	 */
 	this.deleteItem = function(object)
 	{
@@ -304,7 +301,7 @@ Scene = function(renderer)
 	}
 
 	/**
-	 * Actualizar los elementos de la interfaz
+	 * update inventory interface
 	 */
 	this.InventoryUpdate = function()
 	{
@@ -315,7 +312,7 @@ Scene = function(renderer)
 	};
 
 	/**
-	 * Devuelve si es necesario mostrar el visor de objetos
+	 * return showViewer
 	 */
 	this.getShowViewer = function()
 	{
@@ -323,7 +320,7 @@ Scene = function(renderer)
 	}
 
 	/**
-	 * Devuelve el visor de objetos activo
+	 * return viewer
 	 */
 	this.getViewer = function()
 	{
@@ -331,7 +328,7 @@ Scene = function(renderer)
 	}
 
 	/**
-	 * Activa el visor de objetos para un objeto
+	 * activate object viewer
 	 */
 	this.ObjectVisualize = function(object, distacne = 20)
 	{
@@ -340,13 +337,13 @@ Scene = function(renderer)
 			viewer = new ObjectViewer(renderer, object, distacne);
 			showViewer = true;
 
-			// Desactivar control
+			// disable control
 			interactionActivate = false;
 			orbitControls.enabled = false;
 
 			$("#accept-button").fadeIn(400);
 
-			if (currenetMode == Scene.Mode.EXAMINANDO)
+			if (currenetMode == Scene.Mode.EXAMINATION)
 				$("#object-crop").fadeOut(400);
 
 			$("#inventory").fadeOut(400);
@@ -356,62 +353,62 @@ Scene = function(renderer)
 	}
 
 	/**
-	 * Desactiva el visor de objetos
+	 * inactivate object viewer
 	 */
 	this.hideViewerObject = function()
 	{
 		viewer = null;
 		showViewer = false;
 
-		// Activar control
-		orbitControls.enabled = currenetMode == Scene.Mode.INVESTIGANDO;
+		// activate control
+		orbitControls.enabled = currenetMode == Scene.Mode.INVESTIGATION;
 		interactionActivate = true;
 
 		$("#accept-button").fadeOut(400);
 
-		if (currenetMode == Scene.Mode.EXAMINANDO)
+		if (currenetMode == Scene.Mode.EXAMINATION)
 			$("#object-crop").fadeIn(400);
 
 		if (!inventory.itemListEmpty())
 			$("#inventory").fadeIn(400);
 	}
 
-	// Gestor de diálogos
+	// dialog manager
 	/**
-	 * Inicia un diálogo
+	 * initiate dialog
 	 * 
-	 * @param {Array} Array con las líneas del diálogo
+	 * @param {Array} Array of dialog strings
 	 */
 	this.initialDialog = function(text)
 	{
 		if (currenetMode !== Scene.Mode.DIALOG)
 		{
-			// Ocultar otros elementos
+			// fade-out game interface
 			$("#object-crop").fadeOut(400);
 			$("#inventory").fadeOut(400);
 
-			// Cambiar a modo diálogo
+			// change dialog mode
 			previousMode = currenetMode;
 			currenetMode = Scene.Mode.DIALOG;
 
-			// Desactivar los controles
+			// disable control
 			interactionActivate = false;
 			orbitControls.enabled = false;
 
-			// Iniciar el diálogo
+			// start dialog
 			dialog.createDialog(text);
 			document.getElementById("text-dialog").innerHTML = dialog.text();
 
-			// Mostrar la interfaz
+			// enable dialog interface
 			$("#darkness").fadeIn(400);
 			$("#dialog").fadeIn(400);
 		}
 	}
 
 	/**
-	 * Inicia un diálogo que finalizará el Scene
+	 * show final dialog
 	 * 
-	 * @param {Array} Array con las líneas del diálogo
+	 * @param {Array} Array of final dialog
 	 */
 	this.initialDialogFinal = function(text)
 	{
@@ -420,7 +417,7 @@ Scene = function(renderer)
 	}
 
 	/**
-	 * Avanza el diálogo a la siguiente línea
+	 * move next dialog
 	 */
 	this.passDialog = function()
 	{
@@ -430,7 +427,7 @@ Scene = function(renderer)
 
 			if (fin)
 			{
-				// Cambiar al modo anterior
+				// change previous mode
 				currenetMode = previousMode;
 
 				if (currenetMode === Scene.Mode.FIN)
@@ -439,26 +436,25 @@ Scene = function(renderer)
 				}
 				else
 				{
-					// Activar la interacción
-					orbitControls.enabled = currenetMode == Scene.Mode.INVESTIGANDO || currenetMode == Scene.Mode.TUTORIAL;
+					// activate interaction
+					orbitControls.enabled = currenetMode == Scene.Mode.INVESTIGATION || currenetMode == Scene.Mode.TUTORIAL;
 					interactionActivate = true;
 
-					// Ocultar el diálogo
+					// fade-out dialog interface
 					$("#darkness").fadeOut(400);
 					$("#dialog").fadeOut(400);
 
 					if (pendingView === null)
 					{
-						// Mostrar el botón de salir si es necesario
-						if (currenetMode == Scene.Mode.EXAMINANDO)
+						// fade-in game interfacae
+						if (currenetMode == Scene.Mode.EXAMINATION)
 							$("#object-crop").fadeIn(400);
 						
-						// Mostrar el inventory si es necesario
 						if (!inventory.itemListEmpty())
 							$("#inventory").fadeIn(400);
 					}
 
-					// Visualizar objeto pendiente
+					// visualize object
 					if (pendingView !== null)
 					{
 						this.ObjectVisualize(pendingView.object, pendingView.distance);
@@ -474,7 +470,7 @@ Scene = function(renderer)
 	}
 
 	/**
-	 * Muestra una pantalla de fin
+	 * load fin scene
 	 */
 	this.terminateScene = function()
 	{
@@ -482,7 +478,7 @@ Scene = function(renderer)
 	}
 
 	/**
-	 * Devuelve el modo actual
+	 * return current mode
 	 */
 	this.getCurrentMode = function()
 	{
@@ -490,11 +486,11 @@ Scene = function(renderer)
 	}
 
 	/**
-	 * Terminar tutorial
+	 * terminate tutorial mode
 	 */
 	this.terminateTutorial = function()
 	{
-		currenetMode = Scene.Mode.INVESTIGANDO;
+		currenetMode = Scene.Mode.INVESTIGATION;
 	}
 
 	init(this, renderer);
@@ -505,8 +501,8 @@ Scene.prototype.constructor = Scene;
 
 
 Scene.Mode = {
-	INVESTIGANDO : 0,
-	EXAMINANDO : 1,
+	INVESTIGATION : 0,
+	EXAMINATION : 1,
 	DIALOG : 2,
 	TUTORIAL : 3, // Init
 	FIN : 4
