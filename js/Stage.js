@@ -155,19 +155,16 @@ Stage = function(scene)
 						modelBookshelf.scale.set(1.3, 1.3, 1.2);
 
 						var pointCamera = new THREE.Object3D(); //카메라포인트
-						pointCamera.position.x = -10;
-						pointCamera.position.y = 50;
+						pointCamera.position.y = 60;
 						pointCamera.position.z = -80;
-
-
-						pointCamera.rotation.y = -Math.PI/1;
+						pointCamera.rotation.y = Math.PI;
+						
 
 
 						var bookshelf = new ObjectCheck(modelBookshelf, functionBookshelf, pointCamera, scene);//책상
 						bookshelf.position.x = -120;
 						bookshelf.position.z = 137;
-						
-
+						bookshelf.rotation.z = -Math.PI*2;
 						
 
 						objects.add(bookshelf);
@@ -450,7 +447,7 @@ Stage = function(scene)
 						computer.translateX(-32);
 						computer.translateY(48);
 						computer.translateZ(-25);
-						
+					
 
 						objects.add(computer);
 					});
