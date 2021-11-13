@@ -3,14 +3,10 @@ Stage = function(scene)
 	// super 호출
 	THREE.Object3D.call(this);
 
-	// static objects
-	var fondo = null; //bottom = 밑바닥
-
 	// interactive objects
 	this.objects = new THREE.Object3D();
 
 	var light; // 빛
-	/** create las luces */ //조명 만들기
 	var createLights = function(self) //불키는거
 	{
 		ambientLight = new THREE.AmbientLight(0x161616);
@@ -20,7 +16,6 @@ Stage = function(scene)
 		self.add(light);
 	};
 
-	/** create los objects decorativos */ //장식품 만들기
 	var createRoom = function() //밑바닥 만들기
 	{
 		var decoration = new THREE.Object3D(); //데코레이션
@@ -42,15 +37,13 @@ Stage = function(scene)
 		return decoration;
 	};
 		
-	/** Functiones de los objects interactuables */ //상호작용 가능한 객체 함수
 	var lightInterrupt = function() //인터럽트 생성
 	{
-		var lightOn = false; //점화? 불키는건듯
+		var lightOn = false;
 		var functionInterruptor = function(object,mode, selectedObject) //인터럽트 함수
 		{
 			if (!lightOn)
 			{
-				// Encender la light y terminar tutorial
 				light.intensity = 1;
 				object.scene.terminateTutorial();
 				lightOn = true;
@@ -132,7 +125,7 @@ Stage = function(scene)
 
 		var createBookshelf = function(objects, keyInventory, InventoryCombination)
 		{
-			var functionBookshelf = function(object, mode, objectseleccionado)
+			var functionBookshelf = function(object, mode, selectedObject)
 			{
 				if (mode !== Scene.Mode.TUTORIAL)
 				{
@@ -184,8 +177,8 @@ Stage = function(scene)
 
 	var createDoor = function(keyInventory) // 문 생성
 	{
-		var modelDoor = new THREE.Object3D(); //문 모델
-		var mobilePart = new THREE.Object3D(); //모빌 파트?
+		var modelDoor = new THREE.Object3D();
+		var mobilePart = new THREE.Object3D(); 
 		var wood = new THREE.Mesh(new THREE.BoxGeometry(50, 85, 2), //목재
 										new THREE.MeshLambertMaterial({color: 0x6c4226}));
 		
@@ -221,23 +214,21 @@ Stage = function(scene)
 
 		var functionDoor = function(object, mode, selectedObject) //문 생성
 		{
+			if(mode !== Scene.Mode.TUTORIAL){
 
-			if(mode !== Scene.Mode.TUTORIAL){ //modo = 방법
-
-				if(object.ActivationObject === selectedObject){ //objectsActivation, objectsSelected
-					//Suponiendo que hemos conseguido la key
+				if(object.ActivationObject === selectedObject){ 
 					if(!opened){
 						opened = true;
 						var initalRotation = {angle: 0}; //initial rotation
 						var FinalRotation = {angle:- Math.PI/2}; //final rotation
 
 						this.interpolater = new TWEEN.Tween(initalRotation).to(FinalRotation, 500)
-							.onUpdate(function(){ //삽입이라는데 열쇠 넣는건가봄
+							.onUpdate(function(){
 								mobilePart.rotation.y = initalRotation.angle;
 							})
 							.start()
 
-						object.scene.initialDialogFinal([ //엔딩인듯
+						object.scene.initialDialogFinal([
 						"나: 응?",
 						"나: 문을 열었는데 왜 벽이 나오는거야?!",
 						"나: 그럼 대체 어떻게 빠져나가야 하지?",
@@ -317,7 +308,7 @@ Stage = function(scene)
 		var opened = false; //금고문 열렸는지 여부
 		var functionSafeBox = function(object, mode, selectedObject)
 		{
-			var throwing = false; //던지다, 떨어트리다?
+			var throwing = false;
 			if(object.ActivationObject === selectedObject)
 			{
 				if(!opened){
@@ -408,10 +399,10 @@ Stage = function(scene)
 
 	var createComputer = function(objects, keyInventory, InventoryCombination)
 		{
-		var functionComputer = function(object, mode, objectseleccionado)
+		var functionComputer = function(object, mode, selectedObject)
 		{
-			if(mode !== Scene.Mode.TUTORIAL){ //modo = 방법
-							if (objectseleccionado === InventoryCombination) {
+			if(mode !== Scene.Mode.TUTORIAL){
+							if (selectedObject === InventoryCombination) {
 							object.scene.initialDialog([
 								"비밀번호를 입력해봤지만 틀렸다는 메시지가 뜬다.",
 								"아무래도 여기에 쓰는 번호가 아닌 듯 하다."
@@ -469,10 +460,10 @@ Stage = function(scene)
 
 	var createDesk = function(objects, keyInventory, InventoryCombination)//책상 생성
 	{
-		var functionDesk = function(object, mode, objectseleccionado)
+		var functionDesk = function(object, mode, selectedObject)
 		{
 			if(mode !== Scene.Mode.TUTORIAL){ //modo = 방법
-				if(objectseleccionado === keyInventory){
+				if(selectedObject === keyInventory){
 					object.scene.initialDialog([
 					"서랍에 열쇠를 끼워보려 했지만, 맞는 열쇠가 아닌 것 같다."
 					]);
@@ -538,7 +529,7 @@ Stage = function(scene)
 
 	var createCombination = function(InventoryCombination)//combination 생성
 	{
-		var functionCombination = function(object, modo, objectseleccionado)
+		var functionCombination = function(object, modo, selectedObject)
 		{
 			object.scene.initialDialog([
 				"침대 밑을 보니 '1031'이라고 적힌 쪽지가 있다.",
@@ -637,7 +628,7 @@ Stage = function(scene)
 
 
 		var trueBed = new ObjectCheck(bedModel, functionBed, pointCamera, scene);
-		//이불인가 교환인가
+
 		trueBed.position.x = -90;
 		trueBed.position.y = 10;
 		trueBed.rotation.y = Math.PI/2;
@@ -652,7 +643,6 @@ Stage = function(scene)
 		return trueBed;
 	}
 
-	/** create los objects interactuables */
 	var createObjects = function() //오브젝트 생성
 	{
 		var objects = new THREE.Object3D();
