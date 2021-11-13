@@ -87,7 +87,7 @@ Scene = function(renderer)
 	};
 
 	/**
-	 * select object undet the mouse cursor
+	 * select object under the mouse cursor
 	 * to interaction method
 	 * 
 	 * @param {Vector2} mouse location
@@ -101,7 +101,6 @@ Scene = function(renderer)
 
 		    selectedObject = raycaster.intersectObjects(stage.objects.children, true);
             console.log("selectedObject" ,selectedObject)
-			// Seleccionar el más cercano
 			if (selectedObject.length > 0)
 			{
 				/**
@@ -167,7 +166,6 @@ Scene = function(renderer)
 		orbitControls.enabled = false;
 		interactionActivate = false;
 
-		// Interpol 
 		var pointCameraInital = {
 			x: camera.position.x,
 			y: camera.position.y,
@@ -221,7 +219,6 @@ Scene = function(renderer)
 			// disabel control
 			interactionActivate = false;
 
-			// Interpol
 			var pointCameraInital = {
 				x: camera.position.x,
 				y: camera.position.y,
