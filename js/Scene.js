@@ -143,7 +143,7 @@ Scene = function(renderer)
 	 * 
 	 * @param {ObjectCheck} object can make camera move
 	 */
-	this.object             = function(object)
+	this.objectCheck = function(object)
 	{
 		if (objectCheck === null)
 		{
